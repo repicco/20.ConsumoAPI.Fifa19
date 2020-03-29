@@ -27,3 +27,17 @@ footer {
     position: fixed;
     bottom: 0;
 }
+
+.card-img-top {
+    align-self: center;
+    width: 60%;
+}
+
+.card-img-top:hover {
+    width: 80%;
+}
+
+#myChart {
+    margin: 50px 0 50px 0;
+    background-color: #fff;
+}

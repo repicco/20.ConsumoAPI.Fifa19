@@ -1,17 +1,20 @@
 /* API */
-const apiUrl = 'https://fifagama.herokuapp.com/fifa19/0/12'
+const apiUrl = 'https://fifagama.herokuapp.com/fifa19/0/6'
+
+let validaJogadores = ''
 
 /* Consumo API */
 fetch(apiUrl)
     .then(response => response.text())
     .then(result => {
         const jogadores = JSON.parse(result)
-
-        jogadores.map(jogador => criarCard(jogador.data) )
+        jogadores.map(jogador =>  createCard(jogador.data))
     })
 
-function criarCard (jogador) {
-    const { Name, Age, Photo, Club, Finishing, Agility, Stamina } = jogador
+function createCard (jogador, vJogadores) {
+    
+    const { Name, Age, Photo, Club, Finishing, Agility, Stamina, Dribbling } = jogador
+
 
     cont = document.getElementById("App")
 
@@ -24,6 +27,7 @@ function criarCard (jogador) {
     image = document.createElement('img')
     image.className = 'card-img-top'
     image.src = Photo.replace('/4/','/10/')
+
 
     cardBody = document.createElement('div')
     cardBody.className = 'card-body'
@@ -59,6 +63,10 @@ function criarCard (jogador) {
     propStamina.className = 'Stamina'
     propStamina.innerHTML = `Folego: ${Stamina}`
 
+    propDribbling = document.createElement('p')
+    propDribbling.className = 'Stamina'
+    propDribbling.innerHTML = `Drible: ${Dribbling}`
+
 
     cont.appendChild(div)
     
@@ -76,9 +84,41 @@ function criarCard (jogador) {
     cardFooter.appendChild(propFinishing)
     cardFooter.appendChild(propAgility)
     cardFooter.appendChild(propStamina)
+    cardFooter.appendChild(propDribbling)
+
+    createGraph( jogador )
+
+    
 }
 
+function createGraph( jogador ) {
 
+    var player = Object.keys(jogador) + Object.values(jogador)
+
+    console.log(player)
+
+    /*var nomes = player.map(function(players){
+        return players.Name
+    })*/
+
+    //console.log(nomes)
+
+    var ctx = document.getElementById('myChart')
+
+    //type, data e options
+    var chartGraph = new Chart (ctx, {
+        type: 'bar',
+        data: {
+            labels: [ 'Finalizações', 'Agilidade', 'Stamina', 'Drible' ],
+            datasets: [{
+                label: jogador.Name,
+                data: [ ]
+            }]
+        }
+    })
+}
+
+/*
 var ctx = document.getElementById('myChart');
 var myChart = new Chart(ctx, {
 
@@ -94,4 +134,4 @@ options: {
         }]
     }
 }
-});
+});*/
