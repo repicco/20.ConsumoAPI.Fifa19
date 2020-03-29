@@ -86,33 +86,22 @@ function createCard (jogador, vJogadores) {
     cardFooter.appendChild(propStamina)
     cardFooter.appendChild(propDribbling)
 
-    createGraph( jogador )
-
+    createGraph( Name, Finishing, Agility, Stamina, Dribbling )
     
 }
 
-function createGraph( jogador ) {
-
-    var player = Object.keys(jogador) + Object.values(jogador)
-
-    console.log(player)
-
-    /*var nomes = player.map(function(players){
-        return players.Name
-    })*/
-
-    //console.log(nomes)
+function createGraph( Name, Finishing, Agility, Stamina, Dribbling ) {
 
     var ctx = document.getElementById('myChart')
 
     //type, data e options
     var chartGraph = new Chart (ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: [ 'Finalizações', 'Agilidade', 'Stamina', 'Drible' ],
             datasets: [{
-                label: jogador.Name,
-                data: [ ]
+                label: Name,
+                data: [Finishing, Stamina, Agility, Stamina, Dribbling ]
             }]
         }
     })
